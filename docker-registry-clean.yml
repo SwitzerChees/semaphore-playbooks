@@ -21,7 +21,7 @@
       with_items: "{{ applications }}"
     - name: Flatten tags results into single array
       set_fact:
-        tags_dict: "{{ tags_dict | default ({}) | combine ( { item.json.name : item.json.tags | default([]) } ) }}"
+        tags_dict: "{{ tags_dict | default ({}) | combine ({ item.json.name: item.json.tags | default([]) } ) }}"
       with_items: "{{ tags.results }}"
       loop_control:
         label: "{{ item.json.name }}"
@@ -37,7 +37,7 @@
       register: manifests_to_remove
       # when: item[1] is search('-SNAPSHOT') and item[1] != item[0].value[-1]
       when: item.1 is not none and item[1] != item[0].value[-1]
-      loop: "{{ tags_dict | dict2items | subelements('value') }}"
+      loop: "{{ tags_dict | dict2items | subelements('value') | default([]) }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
     - name: Delete Manifests
