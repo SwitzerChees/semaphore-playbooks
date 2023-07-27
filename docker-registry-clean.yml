@@ -36,7 +36,7 @@
         return_content: yes
       register: manifests_to_remove
       # when: item[1] is search('-SNAPSHOT') and item[1] != item[0].value[-1]
-      when: item[1] is not none and item[1] != item[0].value[-1]
+      when: tags_dict[item[0].key] is defined and item[1] != tags_dict[item[0].key][-1]
       loop: "{{ tags_dict | dict2items | subelements('value') }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
