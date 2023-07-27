@@ -9,6 +9,8 @@
     registry_url: "{{ registry_schema }}://{{ registry }}/v2"
     applications:
       - conmgmt
+      - conmgmt-api
+      - conmgmt-ui
   tasks:
     # Fetch tags for applications
     - name: Fetch tags for applications
