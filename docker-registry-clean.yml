@@ -52,3 +52,9 @@
       loop: "{{ manifests_to_remove.results }}"
       loop_control:
         label: "DELETE {{ registry_url }}/{{ item.item[0].key }}/manifests/{{ item.docker_content_digest | default ('skipped...') }}"
+    - name: Execute Garbage Collect from Docker
+      command: docker exec -i registry bin/registry garbage-collect /etc/docker/registry/config.yml
+      args:
+        chdir: /opt/docker-registry
+      register: garbage_collect
+      when: garbage_collect is not defined
