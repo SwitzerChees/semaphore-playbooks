@@ -6,7 +6,7 @@
     registry_user: "{{ docker_username }}"
     registry_pass: "{{ docker_password }}"
     registry_schema: "{{ docker_host_schema }}"
-    registry_url: "{{ registry_schema }}://{{ registry}}/v2"
+    registry_url: "{{ registry_schema }}://{{ registry }}/v2"
     applications:
       - conmgmt
   tasks:
