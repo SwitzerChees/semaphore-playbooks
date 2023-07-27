@@ -21,7 +21,7 @@
       with_items: "{{ applications }}"
     - name: Flatten tags results into single array
       set_fact:
-        tags_dict: "{{ tags_dict | default({}) | combine({item.name: item.tags | default([]) if item.tags is not none else []}) }}"
+        tags_dict: "{{ tags_dict | default({}) | combine({item.json.name: item.json.tags | default([]) if item.json.tags is not none else []}) }}"
       with_items: "{{ tags.results }}"
       loop_control:
         label: "{{ item.json.name }}"
