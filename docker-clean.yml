@@ -1,6 +1,7 @@
 ---
 - name: clean docker
   hosts: all
+  become: true
   tasks:
     - name: cleanup docker images
       community.docker.docker_prune:
