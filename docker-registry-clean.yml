@@ -10,6 +10,7 @@
     applications:
       - conmgmt
   tasks:
+    # Fetch tags for applications
     - name: Fetch tags for applications
       uri:
         method: GET
@@ -25,6 +26,8 @@
       with_items: "{{ tags.results }}"
       loop_control:
         label: "{{ item.json.name }}"
+
+    # Fetch manifests
     - name: Fetch manifests
       uri:
         method: GET
@@ -40,6 +43,8 @@
       loop: "{{ tags_dict | dict2items | subelements('value') }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
+
+    # Delete Manifests
     - name: Delete Manifests
       uri:
         method: DELETE
@@ -53,7 +58,10 @@
       loop: "{{ manifests_to_remove.results }}"
       loop_control:
         label: "DELETE {{ registry_url }}/{{ item.item[0].key }}/manifests/{{ item.docker_content_digest | default ('skipped...') }}"
+
+    # Execute Garbage Collect from Docker Registry
     - name: Execute Garbage Collect from Docker
+      become: true
       command: docker exec -i registry bin/registry garbage-collect /etc/docker/registry/config.yml
       args:
         chdir: /opt/docker-registry
