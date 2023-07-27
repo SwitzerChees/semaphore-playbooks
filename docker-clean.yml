@@ -3,6 +3,13 @@
   hosts: all
   become: true
   tasks:
+    # Install docker python module
+    - name: install docker python module
+      pip:
+        name: docker
+        state: present
+
+    # Cleanup docker images
     - name: cleanup docker images
       community.docker.docker_prune:
         containers: true
