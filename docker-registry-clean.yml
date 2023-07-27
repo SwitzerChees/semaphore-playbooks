@@ -25,6 +25,7 @@
       with_items: "{{ tags.results }}"
       loop_control:
         label: "{{ item.json.name }}"
+      when: tags is defined and tags.results | length > 0
     - name: Fetch manifests
       uri:
         method: GET
