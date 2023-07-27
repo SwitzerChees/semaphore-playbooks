@@ -25,7 +25,6 @@
       with_items: "{{ tags.results }}"
       loop_control:
         label: "{{ item.json.name }}"
-      when: tags is defined and tags.results | length > 0
     - name: Fetch manifests
       uri:
         method: GET
@@ -37,6 +36,7 @@
         return_content: yes
       register: manifests_to_remove
       # when: item[1] is search('-SNAPSHOT') and item[1] != item[0].value[-1]
+      when: item[1] is not none and item[1] != item[0].value[-1]
       loop: "{{ tags_dict | dict2items | subelements('value') }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
