@@ -37,7 +37,7 @@
       register: manifests_to_remove
       # when: item[1] is search('-SNAPSHOT') and item[1] != item[0].value[-1]
       when: item.1 is not none and item[1] != item[0].value[-1]
-      loop: "{{ tags_dict | dict2items | rejectattr('value', 'not defined') | subelements('value') }}"
+      loop: "{{ tags_dict | dict2items | map('combine', {'value': default('N/A')}) | subelements('value') }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
     - name: Delete Manifests
