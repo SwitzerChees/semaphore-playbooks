@@ -15,8 +15,6 @@
       stat:
         path: /var/run/reboot-required
       register: reboot_required
-    - debug:
-        msg: "Reboot is required"
 
     # Reboot machine if required
     - name: reboot machine
