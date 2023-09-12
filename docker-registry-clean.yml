@@ -42,7 +42,7 @@
       when:
         - item.1 is not none
         - item[1] != item[0].value[-1]
-        - not (item[1] | regex_search('v\d+\.\d+\.\d+'))
+        - item[1] is not match('^v\d+\.\d+\.\d+$')
       loop: "{{ tags_dict | dict2items | subelements('value') }}"
       loop_control:
         label: "{{ item[0].key ~ '/manifests/' ~ item[1] }}"
