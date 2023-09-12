@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  become: true
   serial: 1
   vars:
     image_gc_low_threshold: 60
