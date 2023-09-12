@@ -5,9 +5,9 @@
   vars:
     threshold: 80 # Default value for threshold
   tasks:
-    # Check How much disk space is used in %, ignoring tmpfs
+    # Check How much disk space is used in %, ignoring tmpfs and overlay
     - name: check disk space
-      shell: df --output=pcent,target,fstype | grep -v tmpfs | tail -n +2
+      shell: df --output=pcent,target,fstype | egrep -v 'tmpfs|overlay' | tail -n +2
       register: disk_space
 
     # Check if disk space used is more than the threshold
