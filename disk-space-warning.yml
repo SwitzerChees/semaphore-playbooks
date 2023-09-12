@@ -4,10 +4,11 @@
   become: true
   vars:
     threshold: 80 # Default value for threshold
+    excluded_filesystems: "tmpfs|overlay" # Default value for excluded filesystems
   tasks:
     # Check How much disk space is used in %, ignoring tmpfs and overlay
     - name: check disk space
-      shell: df --output=pcent,target,fstype | egrep -v 'tmpfs|overlay' | tail -n +2
+      shell: df --output=pcent,target,fstype | egrep -v '{{ excluded_filesystems }}' | tail -n +2
       register: disk_space
 
     # Check if disk space used is more than the threshold
