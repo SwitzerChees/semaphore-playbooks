@@ -7,9 +7,7 @@
     registry_pass: "{{ docker_password }}"
     registry_schema: "{{ docker_host_schema }}"
     registry_url: "{{ registry_schema }}://{{ registry }}/v2"
-    applications:
-      - conmgmt
-      - sfw-stream
+    applications: []
   tasks:
     # Fetch tags for applications
     - name: Fetch tags for applications
