@@ -35,9 +35,8 @@
         file_type: directory
       register: work_dirs
 
-    - name: remove all _work dirs in 'runner' parent folders
+    - name: remove all content of _work dirs
       file:
         path: "{{ item.path }}"
         state: absent
-      loop: "{{ work_dirs.files }}"
-      when: "'runner' in item.path.split('/')[-2]"
+      with_items: "{{ work_dirs.files }}"
