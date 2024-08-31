@@ -28,10 +28,10 @@
         builder_cache: true
 
     # Cleanup _work dirs on the host
-    - name: find all _work dirs in /opt
+    - name: find all _work dirs in host
       find:
-        paths: /opt
-        patterns: "*_work"
+        paths: /
+        patterns: "_work"
         file_type: directory
       register: work_dirs
 
