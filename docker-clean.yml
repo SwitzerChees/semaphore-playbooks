@@ -26,3 +26,18 @@
         networks: true
         volumes: true
         builder_cache: true
+
+    # Cleanup _work dirs on the host
+    - name: find all _work dirs in /opt
+      find:
+        paths: /opt
+        patterns: "*_work"
+        file_type: directory
+      register: work_dirs
+
+    - name: remove all _work dirs in 'runner' parent folders
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ work_dirs.files }}"
+      when: "'runner' in item.path.split('/')[-2]"
