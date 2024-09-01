@@ -34,6 +34,7 @@
         patterns: "_work"
         file_type: directory
       register: work_dirs
+      become: true
 
     - name: remove all content of _work dirs
       file:
