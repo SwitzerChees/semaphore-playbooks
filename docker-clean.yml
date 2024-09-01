@@ -40,3 +40,4 @@
         path: "{{ item.path }}"
         state: absent
       with_items: "{{ work_dirs.files }}"
+      become: true
