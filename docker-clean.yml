@@ -36,6 +36,7 @@
       with_items:
         - /opt/github-runner-2/_work
         - /opt/github-runner/_work
+        - /usr/local/share/.cache/yarn
 
     - name: Recreate empty _work directories
       become: true # Run as root to ensure permissions
@@ -45,3 +46,5 @@
       with_items:
         - /opt/github-runner-2/_work
         - /opt/github-runner/_work
+        - /usr/local/share/.cache/yarn
+        - /usr/local/share/.cache/yarn/v6
