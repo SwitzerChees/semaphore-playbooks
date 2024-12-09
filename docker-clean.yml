@@ -2,6 +2,13 @@
 - name: clean docker
   hosts: all
   become: true
+  vars:
+    work_directories:
+      - /opt/github-runner-2/_work
+      - /opt/github-runner/_work
+      - /usr/local/share/.cache/yarn
+      - /usr/local/share/.cache/yarn/v6
+
   tasks:
     # Install pip
     - name: install pip
@@ -29,22 +36,13 @@
 
     # Cleanup _work dirs on the host
     - name: Remove all content from _work directories
-      become: true # Run as root to ensure permissions
       file:
         path: "{{ item }}"
         state: absent
-      with_items:
-        - /opt/github-runner-2/_work
-        - /opt/github-runner/_work
-        - /usr/local/share/.cache/yarn
+      loop: "{{ work_directories }}"
 
     - name: Recreate empty _work directories
-      become: true # Run as root to ensure permissions
       file:
         path: "{{ item }}"
         state: directory
-      with_items:
-        - /opt/github-runner-2/_work
-        - /opt/github-runner/_work
-        - /usr/local/share/.cache/yarn
-        - /usr/local/share/.cache/yarn/v6
+      loop: "{{ work_directories }}"
