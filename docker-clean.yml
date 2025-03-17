@@ -27,7 +27,7 @@
       community.docker.docker_prune:
         containers: true
         images: true
-        timeout: 300
+        timeout: 600
         images_filters:
           dangling: false
         networks: true
