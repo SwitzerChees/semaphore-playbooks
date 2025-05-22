@@ -3,8 +3,8 @@
   become: true
   serial: 1
   vars:
-    image_gc_low_threshold: 40
-    image_gc_high_threshold: 55
+    image_gc_low_threshold: 60
+    image_gc_high_threshold: 75
   tasks:
     - name: Check if /etc/rancher/k3s exists
       stat:
